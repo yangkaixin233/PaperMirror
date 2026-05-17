@@ -1,0 +1,4 @@
+release-assets/
+*.vsix
+.DS_Store
+Thumbs.db
