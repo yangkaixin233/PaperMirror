@@ -113,23 +113,96 @@ PaperMirror 不修改 `.tex` 源文件。需要翻译的文本 block 会发送�
 
 ## English
 
-PaperMirror is an **incremental Chinese review preview for English LaTeX paper writing**. It renders the active `.tex` file as a Simplified Chinese preview and re-translates only newly added or modified LaTeX blocks after edits.
+PaperMirror is an **incremental Chinese review preview for English LaTeX research writing**. It is a VS Code / Cursor extension that renders the active `.tex` file into a Simplified Chinese mirror preview. It is designed for writing-time review: after drafting, editing, or LLM-assisted polishing, you can quickly check meaning, logic, terminology, and formula context in Chinese.
 
-It is designed for writing-time review: checking meaning, logic, terminology, and formula context after drafting or LLM-assisted polishing, without recompiling a PDF or re-translating the whole paper.
+PaperMirror is not a whole-document translator. Its core behavior is **changed-block translation**: it re-translates only newly added or modified LaTeX blocks and reuses local cache for unchanged content whenever possible.
 
-### Highlights
+### Features
 
-- Changed-block translation with local cache reuse.
-- Source-safe workflow: reads `.tex` files but does not modify them.
-- Save-triggered refresh by default, with manual refresh available.
-- Progressive preview for long documents.
-- LaTeX-aware protection for math, citations, refs, labels, URLs, and common commands.
-- Safe fallback when individual blocks fail.
-- Provider options: SiliconFlow, DeepSeek, OpenAI, Ollama, and custom OpenAI-compatible Chat Completions endpoints.
+- **Incremental updates**: translate only newly added or modified LaTeX blocks, with local cache reuse for unchanged content.
+- **Source-safe**: reads `.tex` files but does not write to or modify your paper source.
+- **Writing-friendly**: refreshes on save by default, with manual refresh also available.
+- **Long-document support**: shows document structure and cached content first, then updates unfinished parts progressively.
+- **LaTeX-aware**: tries to protect math, citations, refs, labels, URLs, and common LaTeX commands.
+- **Safe fallback**: keeps the original English text when an individual block fails, instead of breaking the whole preview.
+- **Flexible providers**: supports SiliconFlow, DeepSeek, OpenAI, Ollama, and custom OpenAI-compatible Chat Completions endpoints.
 
-### Install
+### Installation
 
-Search **PaperMirror** in the VS Code Marketplace, or download the VSIX from [GitHub Releases](https://github.com/yangkaixin233/PaperMirror/releases).
+Search **PaperMirror** in the VS Code or Cursor extension panel.
+
+You can also download `papermirror-vscode-0.1.2.vsix` from [GitHub Releases](https://github.com/yangkaixin233/PaperMirror/releases), then install it with:
+
+```text
+Extensions: Install from VSIX...
+```
+
+### Quick Start
+
+1. Open an English `.tex` file.
+2. Run `PaperMirror: Set API Key`.
+3. Run `PaperMirror: Validate API Connection`.
+4. Run `PaperMirror: Open Preview`.
+5. Edit and save the `.tex` file.
+
+After saving, PaperMirror refreshes the Chinese preview. When cache is available, only changed blocks are sent to the provider.
+
+### Provider Configuration
+
+PaperMirror uses OpenAI-compatible Chat Completions APIs.
+
+SiliconFlow example:
+
+```json
+{
+  "paperMirror.provider": "siliconflow",
+  "paperMirror.baseUrl": "https://api.siliconflow.cn/v1",
+  "paperMirror.model": "Pro/zai-org/GLM-4.7",
+  "paperMirror.updateMode": "onSave",
+  "paperMirror.translateComments": false,
+  "paperMirror.showReferenceMarkersInTranslations": false
+}
+```
+
+`paperMirror.baseUrl` should be the base URL only. Do not include `/chat/completions`; PaperMirror appends it automatically.
+
+Supported provider presets:
+
+- SiliconFlow
+- DeepSeek
+- OpenAI
+- Ollama
+- Custom OpenAI-compatible endpoint
+
+This version has mainly been tested with **SiliconFlow**. If you find compatibility issues with other providers, feedback is welcome.
+
+### Key Settings
+
+| Setting | Description |
+| --- | --- |
+| `paperMirror.provider` | Provider preset: `deepseek`, `siliconflow`, `openai`, `ollama`, or `custom`. |
+| `paperMirror.baseUrl` | OpenAI-compatible base URL. |
+| `paperMirror.model` | Model name. |
+| `paperMirror.updateMode` | `onSave` or `manual`. |
+| `paperMirror.translateComments` | Whether to translate LaTeX comments. Default: `false`. |
+| `paperMirror.showReferenceMarkersInTranslations` | Whether to show `[cite]`, `[ref]`, and `[url]` in translations. Default: `false`. |
+| `paperMirror.previewFontFamily` / `paperMirror.previewFontSize` | Font family and font size for the Chinese preview. |
+| `paperMirror.maxBlocksPerRefresh` | Maximum blocks to translate per refresh. `0` means unlimited. |
+
+API keys should preferably be stored through `PaperMirror: Set API Key`, which uses VS Code SecretStorage. You can also put keys in settings, but that is less secure.
+
+### Current Scope
+
+- v0.1.2 supports the active `.tex` file only.
+- Full recursive `\input` / `\include` project parsing is not supported yet.
+- PaperMirror is not a TeX compiler and does not guarantee final PDF layout fidelity.
+- Complex tables, TikZ, `algorithm2e`, and custom macros are mostly shown as placeholders.
+- Math rendering uses MathJax and supports complex TeX package syntax on a best-effort basis.
+- The Chinese preview is a writing aid, not a formal translation or submission artifact.
+
+### Privacy
+
+PaperMirror does not modify your `.tex` source file. Text blocks that need translation are sent to the provider you configure. When using `PaperMirror: Set API Key`, the API key is stored in VS Code SecretStorage by default.
 
 ## License
 
