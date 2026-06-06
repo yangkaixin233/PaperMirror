@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.1.9
+
+Settings and validation diagnostics release.
+
+Added:
+
+- Added clearer first-time setup guidance in the README for provider, API key, base URL, and model.
+- Added more actionable `PaperMirror: Validate API Connection` diagnostics for missing settings, API key source, base URL/model mismatch, JSON Mode incompatibility, timeout, network/proxy failures, and provider-side errors.
+- Added sanitized validation logs that include provider, endpoint, model, key source, JSON Mode state, timeout, and VS Code proxy setting without exposing API keys.
+
+Changed:
+
+- Provider fetch failures now include useful low-level cause details when available, such as network code, address, and port.
+- README and VSIX references now point to `papermirror-vscode-0.1.9.vsix`.
+
+Verification:
+
+- `npm run build`
+- `npm test`
+- VSIX generated: `papermirror-vscode-0.1.9.vsix`.
+
+## 0.1.8
+
+Maintenance release.
+
+- Fixed known issues.
+- Corrected Marketplace category metadata by removing mismatched categories.
+- VSIX generated: `papermirror-vscode-0.1.8.vsix`.
+
 ## 0.1.7
 
 Focused release for long-paper usability, recovery controls, and safer translation output.
@@ -18,7 +47,6 @@ Changed:
 - Save-triggered refresh now fills all missing cache-cleared blocks by default instead of leaving most of the document as source fallback.
 - `Stop Translating` now has clearer status feedback and keeps already visible preview content intact.
 - Placeholder repair is more tolerant of duplicated math/display placeholders while still falling back when required placeholders are missing.
-- README and Marketplace-facing text now explain the long-document workflow, provider validation, full retranslation, and current v0.1.7 boundaries.
 
 Known limitations:
 
