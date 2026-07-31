@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.11
+
+Multi-document background translation and scheduling release.
+
+- Continue unfinished long-document translations in the background after switching to another open LaTeX or Markdown file.
+- Keep provider concurrency at one request while giving the visible document bounded foreground priority.
+- Preserve an independent preview snapshot for each open document so background results cannot replace the visible preview.
+- Keep save debounce and cancellation scoped to the affected document.
+- Rename the clickable English fallback action to `Retry translation`.
+- Rewrite the Chinese-first README around the normal research-writing workflow.
+- Add scheduling regression coverage and complete a real two-long-document provider smoke test.
+- VSIX generated: `papermirror-vscode-0.1.11.vsix`.
+
 ## 0.1.10
 
 LaTeX and Markdown mirror-preview release.
