@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.10
+
+LaTeX and Markdown mirror-preview release.
+
+- Added Chinese mirror translation for active `.md` and `.markdown` files.
+- Added Markdown-aware blocks for headings, paragraphs, lists, inline/display math, inline code, and fenced code.
+- Improved active-document switching across multiple LaTeX and Markdown editors.
+- Added safer recovery for cache-missing blocks and per-block retranslation.
+- Kept incremental save refreshes: only new, changed, or cache-missing prose blocks are requested.
+- Updated the bilingual README and provider setup guidance.
+- VSIX generated: `papermirror-vscode-0.1.10.vsix`.
+
 ## 0.1.9
 
 Settings and validation diagnostics release.
