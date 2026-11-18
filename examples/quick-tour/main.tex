@@ -1,0 +1,26 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\begin{document}
+
+\section{Linear Regression}
+
+Consider a dataset $\mathcal{D}=\{(\mathbf{x}_i,y_i)\}_{i=1}^{N}$,
+where $\mathbf{x}_i \in \mathbb{R}^{d}$ is an input vector and
+$y_i \in \mathbb{R}$ is the observed response.
+
+The model predicts the response as
+$\hat{y}_i=\mathbf{w}^{\top}\mathbf{x}_i+b$,
+where $\mathbf{w}$ and $b$ are the parameters to be estimated.
+
+We fit the model using stochastic gradient descent and minimize
+the following loss:
+\[
+\mathcal{L}_{\mathrm{MSE}}
+= \frac{1}{N}\sum_{i=1}^{N}
+\left(y_i-\hat{y}_i\right)^2.
+\]
+
+The squared-error term measures how closely the predictions match
+the observed responses.
+
+\end{document}

@@ -1,5 +1,62 @@
 # Changelog
 
+## 1.0.0
+
+First stable release, bringing together the changes developed after 0.1.11.
+
+- Chinese comparison for English LaTeX and Markdown, rendered formulas, and cursor-linked navigation.
+- Persistent change marks with earlier Chinese and formula comparisons, plus fixes for block matching, external refresh and Clear.
+- More reliable selected-block translation, cancellation, retries and MathJax rendering.
+- A Chinese setup page with required-field hints, editable models, official API-key links, secure key storage and one-click connection testing. Advanced options stay collapsed.
+- Chinese store name, description and search keywords, while keeping the existing extension ID.
+- A rewritten README with an eight-second demo, everyday usage first and setup/reference details afterwards.
+
+## 0.1.16
+
+- Rewrite the README around Chinese comparison, persistent change marks and formula preview, with an eight-second VS Code demo and shorter setup instructions. Document cursor-linked navigation from the English source to the Chinese preview.
+- Fix incorrect “Show before” pairings when a revision deletes, edits, and adds paragraphs together. Uncertain matches stay as additions and deletions; very large document reorders are no longer silently ignored.
+- Retain local change-detection source for table contents, figure paths, standalone labels, Markdown links and code, and compare heading/list structure without changing translation cache keys or sending this extra source to the model.
+- Show the earlier rendered formula for edited display equations, with controls outside the nodes MathJax replaces.
+- Refresh an already tracked preview when an external tool rewrites its clean, open source document in `onSave` mode. Keep unsaved typing and manual mode out of automatic translation.
+- Establish a baseline immediately when change marks are re-enabled, so the next edit is marked.
+- Keep late translation updates from restoring marks after Clear, while preserving translation text and later edits.
+
+## 0.1.15
+
+- Mark changed blocks in the preview so AI-assisted revisions are easy to review. After each refresh, blocks edited or added since the preview first opened the file (or since the marks were last cleared) get a colored bar and an `Edited` / `New` tag, and deleted blocks leave a `Deleted` marker in place. Colors follow the editor's git gutter colors.
+- `Show before` expands the earlier Chinese of an edited block (or its earlier source if it was never translated); deleted markers expand to the removed text.
+- A change bar under the status line summarizes the marks (`Changes since 10:32: 2 edited · 1 new · 1 deleted`) with `Prev` / `Next` navigation that also reveals the source, and `Clear marks` to accept the current text as the new baseline. `PaperMirror: Clear Change Marks` does the same from the Command Palette.
+- Changes are detected on the raw source, so edits inside formulas, citations, or labels are marked even though they reuse cached translations. Marks accumulate across several saves until cleared, so an assistant that writes the file more than once cannot hide an earlier edit.
+- New setting `paperMirror.showChangeMarkers` (default on) turns the marks off.
+
+## 0.1.14
+
+- Restore formula rendering in VS Code webviews when MathJax's speech worker cannot load local resources. Disable generated speech and braille for the current preview, including when saved MathJax menu preferences enable them; preserve SVG math, semantic enrichment, and saved preferences.
+- Fix a selected-block retry started while the document is idle getting stuck at `Retranslating...` because the preview dropped its result.
+- Stop endlessly re-requesting blocks whose correct translation contains no Chinese (author lists, proper nouns); after two attempts the latest output is accepted and cached, and explicit retry still forces a new request.
+- Parse nested lists with the same environment name and single-line `\begin{itemize} \item ... \end{itemize}` lists correctly, without leaking `\begin`/`\item` markers into the preview.
+- Keep math inside Markdown inline code spans rendered as the original text instead of a literal placeholder token.
+- Retry transient provider failures (429/5xx/network) with backoff, and split a batch that hits the model's output token limit instead of dropping the whole batch to English fallback.
+- Anchor selected-block retry to the block's content hash so retrying after unsaved edits above the block no longer targets the wrong block.
+
+## 0.1.13
+
+- Unify full-document translation and selected-block retries under one cancellable operation per document.
+- Make `Stop Translating` cancel queued document and block work, restore unfinished blocks, and return to `Refresh` without a sticky `Stopping...` state.
+- Ignore late results and delayed Stop commands from superseded operations.
+- Show selected-block retry feedback immediately and keep its request at urgent queue priority.
+- Let an explicit block retry use the current unsaved editor text for that block without saving the source or translating other dirty blocks.
+- Serialize webview updates and restore lifecycle state authoritatively after preview reloads or style changes.
+- Allow a save-triggered document refresh to join an active selected-block retry for the same source.
+
+## 0.1.12
+
+- Allow a selected block to be retried while the document is still translating.
+- Show the selected block's retranslating state immediately and prioritize its request after the active network call.
+- Prevent document progress updates from overwriting a selected-block retry result.
+- Reject English-only provider responses for ordinary prose so they remain visible safe fallbacks instead of entering the translation cache.
+- Mark blocks deferred by an explicit per-refresh limit and provide a clear single-block translation action.
+
 ## 0.1.11
 
 Multi-document background translation and scheduling release.

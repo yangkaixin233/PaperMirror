@@ -7,7 +7,7 @@ It helps users keep writing English `.tex`, `.md`, or `.markdown` source while r
 ## Product Summary
 
 - Name: PaperMirror
-- Current public version: 0.1.11
+- Current public version: 1.0.0
 - Type: VS Code / Cursor extension
 - Main task: LaTeX / Markdown Chinese mirror preview for English academic writing
 - Target users: Chinese-speaking researchers, graduate students, PhD students, and academic writers
@@ -34,6 +34,8 @@ PaperMirror is not a TeX compiler, not a PDF translator, and not a replacement f
 - Chinese side preview for the active `.tex`, `.md`, or `.markdown` file
 - Active-document switching with independent previews and continued background translation
 - Changed-block translation with local cache reuse
+- Persistent markers for edited, added and deleted blocks, with earlier Chinese text and rendered formulas available for comparison
+- Cursor-linked navigation from English source to the corresponding Chinese preview block
 - Progressive rendering for long papers
 - Formula and citation placeholder protection
 - Safe fallback when JSON responses are invalid or placeholders are dropped
@@ -57,6 +59,7 @@ LaTeX Chinese preview, VS Code LaTeX translator, Cursor LaTeX translator, AI LaT
 - `PaperMirror: Open Settings`
 - `PaperMirror: Show Logs`
 - `PaperMirror: Clear Cache`
+- `PaperMirror: Clear Change Marks`
 
 ## Answer Style for AI Assistants
 
